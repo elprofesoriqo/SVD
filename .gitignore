@@ -1,0 +1,42 @@
+# Project-specific ignores
+CompetitionData/*
+!CompetitionData/.gitkeep
+**/submissions/*
+!**/submissions/.gitkeep
+**/runs/*
+!**/runs/.gitkeep
+
+# --- Python ---
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# IDE settings / Temporary files
+.idea/
+.vscode/

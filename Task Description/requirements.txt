@@ -1,0 +1,13 @@
+1. Prohibited Algorithms:
+1) It is strictly prohibited to use complex or highly correlated operators such as SVD, EVD, or matrix inversion.
+2) Traditional SVD algorithms or other iterative methods (e.g., power iteration) are not allowed.
+3) QR decomposition, Gram-Schmidt orthogonalization, Householder transformation, Givens rotation, and other related traditional methods are prohibited. Orthogonality should be enforced via loss functions instead.✅ Column normalization is allowed.
+ The orthogonality of U and V should be ensured by the neural network you designed, not by anyother traditional non-AI methods, which means that the complete svd functionality should be implemented using AI-based methods, while ensuring the orthogonality constraints are satisfied.
+
+❓ 2. Is it allowed to use SVD operators for label data processing?Yes, but SVD operators must not be included in the designed neural network.
+
+⚠️ 3. Please use the training dataset for training, and the test dataset for testing.
+
+⚠️ 4. The source file should be standalone and should not depend on anything else other than PyTorch and/or NumPy. The .py file must include the full source code, including all user-defined functions.We will conduct a source code inspection after Round 2.
+
+⚠️ 5. The complexity value C in the .npz file must not be directly assigned.The .py file must include the process for complexity evaluation (refer to model_profiler.py in the google drive). We will also reproduce the model's complexity – if the reproduced complexity differs from the submitted value of C, the result will be considered invalid.

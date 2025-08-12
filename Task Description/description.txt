@@ -1,0 +1,284 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{hyperref}
+\geometry{margin=2.5cm}
+
+\begin{document}
+\begin{CJK}{UTF8}{gbsn}
+
+% Page 1
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第1页, 共9页 Page 1, Total 9
+\end{center}
+
+\clearpage
+
+% Page 2
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第2页, 共9页 Page 2, Total 9
+
+  \vspace{1em}
+  修订记录 Revision record\\
+  \begin{tabular}{|l|l|l|}
+    \hline
+    日期 Date & 修订版本 Revision version & 修改描述 Change Description \\
+    \hline
+    2025-07-09 & V1.0 & First version \\
+    \hline
+  \end{tabular}
+\end{center}
+
+\clearpage
+
+% Page 3
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第3页, 共9页 Page 3, Total 9
+\end{center}
+
+\clearpage
+
+% Page 4
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第4页, 共9页 Page 4, Total 9
+\end{center}
+
+\section*{1 Introduction}
+This competition focuses on developing an efficient and robust AI-based SVD operator tailored for wireless channels. For additional information, a supplementary document named as `Tech Arena 2025\_Task Background.doc' is provided. In the following, we outline the organization of the competition and participant expectations in Section 2. In Section 3, we provide a summary of the competition's objectives, along with guidance on how to read the provided data and details on the evaluation criteria.
+
+\section*{2 Competition Description}
+The competition consists of two rounds, both are held online.
+
+\begin{itemize}
+  \item In the first round, all participating teams will have 10 days to develop/submit their solutions. Based on the ranking, the top 15 teams will advance to the second round.
+  \item In the second round, the 15 qualifying teams from the first round will be given 4 days to compete on a new dataset. Based on the ranking, the top 6 teams will be selected to present in the Swedish Final, where they will present their solutions to the jury. Final rankings will be determined based on the quality of the presentations and the solutions provided.
+\end{itemize}
+
+\subsection*{2.1 Submission requirements}
+In both rounds, all teams are required to submit:
+\begin{itemize}
+  \item Algorithm output (with the extension `.npz') to our evaluation platform
+  \item Neural model definition file (with the extension `.py') which contains the (\texttt{torch.nn.Module}) class which instantiates the submissions neural network. The source file should be standalone and should not depend on anything else other than pytorch and/or numpy.
+  \item Trained model parameter file (with the extension `.pth')
+\end{itemize}
+
+\subsection*{2.2 Important Notes}
+\begin{itemize}
+  \item This competition primarily explores the capability of AI algorithms, with the restriction that only neural network-based algorithms are allowed. The channel dataset incorporates non-ideal factors such as complex Gaussian white noise and timing advance, under which traditional SVD methods perform poorly. Neural networks are expected to learn and achieve more accurate and robust reconstructions.
+  \item The development language for this competition is limited to Python, and the design of the network models is restricted to using standard modules, such as conventional architectures defined in \texttt{torch.nn}. The use of complex composite operators or highly correlated operators such as SVD and EVD is strictly prohibited. If you have special requirements, please contact us.
+  \item To improve the efficiency of data validation in this challenge, all phases will adopt a submission mechanism where participants generate and submit output results independently. Teams that advance to each phase must also submit their corresponding code, which will be inspected and checked for duplication by competition organizer. If the submitted output results differ from the results reproduced by us or if significant similarities between codes are detected, the behavior will be considered cheating and the team will be disqualified.
+  \item Each team has 300 submission opportunities in each round, and the best-performing submission will be used for ranking. Please ensure proper local version control of your code to guarantee that the code corresponding to the best result is saved for future submission to the organizer.
+  \item The competition organizer reserves the right to the final interpretation of all aspects of this challenge. Any deficiencies in this document will be updated and corrected in future versions.
+\end{itemize}
+
+\clearpage
+
+% Page 5
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第5页, 共9页 Page 5, Total 9
+\end{center}
+
+\section*{3 Task Description}
+This task challenges the accuracy and robustness of SVD-based algorithms for wireless channels. The competition organizer provides non-ideal MIMO channel data collected from multiple sampling locations across various scenarios within a single cell. For some of the data, the corresponding ideal channel labels are also provided. Participating teams are required to design neural network models based on the given data to establish a functional module that maps the input (non-ideal channels at fixed sampling points) to the output (approximated SVD results of the channel).
+
+\subsection*{3.1 Task Summary}
+As shown in Figure 1, the core objective of this competition is to design a robust SVD model algorithm tailored for wireless channels.
+
+\textbf{Algorithm Input}
+\\
+A batch of non-ideal channel matrices, denoted as:
+\[ H \in \mathbb{C}^{M\times N} \]
+where $M$ and $N$ denote the rows and columns of the channel matrix.
+
+\textbf{Algorithm Output}
+\\
+The top $r$ largest singular values and their corresponding left and right singular vectors ($r \le M< N$), including:
+\\
+$U \in \mathbb{C}^{M\times r}$ \quad Left singular matrix\\
+$S \in \mathbb{R}^{r}$ \quad Singular value vector, which denotes the diagonal entries of $\Sigma$\\
+$V \in \mathbb{C}^{N\times r}$ \quad Right singular matrix
+
+\textbf{Algorithm Design}
+\\
+Participants must design neural network structures and training strategies based on the dataset provided, establishing a functional mapping from input to output.
+
+\textbf{Design Objectives}
+\\
+The model output should accurately reconstruct the ideal channel matrix corresponding to each input, denoted by $H_{label}\in\mathbb{C}^{N_{samp}\times M\times N}$, such that:
+\[ U\Sigma V^H = H_{label} \]
+We can also rewrite this expression as the following:
+\[ H_{label} = \sum_{i=1}^{r} \sigma_i u_i v_i^H \]
+where $\Sigma\in\mathbb{R}^{r\times r}$ is a diagonal matrix of positive real elements, the diagonal elements are the singular values sorted $\sigma_1 > \sigma_2 > \dots > \sigma_r$, $u_i$ are columns of $U\in\mathbb{C}^{M\times r}$ (the left vectors) and $v_i$ are columns of $V\in\mathbb{C}^{N\times r}$ (the right vectors). The output left and right singular matrices must satisfy orthonormality constraints: $U^H U = I$, $V^H V = I$.
+
+\textbf{Evaluation Metrics}
+\\
+To comprehensively evaluate both the SVD reconstruction accuracy and orthogonality of singular vectors, we define the Approximation Error (AE) as:
+\[
+LAE = \frac{\|H_{label} - U\Sigma V^H\|}{\|H_{label}\|} + \|U^H U - I\| + \|V^H V - I\|
+\]
+where $\|\cdot\|$ denotes the Frobenius norm of a matrix. The average AE across all sampling points in a scenario gives the overall approximation error for that scenario. Averaging over all scenarios and all points yields the final algorithm error.
+In addition to the SVD approximation error, the model complexity is evaluated using the number of multiply-accumulate operations (MACs) during model inference, measured by PyTorch's built-in profiler.
+
+\clearpage
+
+% Page 6
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第6页, 共9页 Page 6, Total 9
+\end{center}
+
+\subsection*{3.2 Data Description}
+\subsubsection*{3.2.1 Data Overview}
+We will provide 2 sets of CompetitionData, as shown in Table 1.
+
+\begin{table}[h]
+\centering
+\caption{Data Overview List}
+\begin{tabular}{|l|p{6cm}|p{5cm}|}
+  \hline
+  Name & Purpose & Remarks \\
+  \hline
+  CompetitionData1 & Used in the first round (to select the top 15). The following documents are provided: Round1CfgDataX.txt, Round1TrainDataX.npy, Round1TrainLabelX.npy, Round1TestDataX.npy & For details about the data format, see Section 3.2.2 \\
+  \hline
+  CompetitionData2 & Used in the second round (to select the final 6). The following documents are provided: Round2CfgDataX.txt, Round2TrainDataX.npy, Round2TrainLabelX.npy, Round2TestDataX.npy &  \\
+  \hline
+\end{tabular}
+\end{table}
+
+\subsubsection*{3.2.2 Data Format}
+\paragraph*{3.2.2.1 Provided data format}
+\begin{itemize}
+  \item \texttt{RoundYCfgDataX.txt}: configuration parameter file for the training dataset for scenario X in round Y. The file contains 5 lines. The following table lists the parameters defined in each line.
+\end{itemize}
+
+\begin{table}[h]
+\centering
+\caption{Content of the \texttt{RoundYCfgDataX.txt} File}
+\begin{tabular}{|l|p{7cm}|l|}
+  \hline
+  Parameter & Meaning & Example Value \\
+  \hline
+  $N_{sample}$ & Total number of sampling points in this scenario & 20000 \\
+  \hline
+  $M$ & Number of rows in the channel matrix & 64 \\
+  \hline
+  $N$ & Number of channel matrix columns & 64 \\
+  \hline
+  $Q$ & real and virtual part dimension & 2 \\
+  \hline
+  $r$ & The goal is to compute the first $r$ largest singular values & 32 \\
+  \hline
+\end{tabular}
+\end{table}
+
+\begin{itemize}
+  \item \texttt{RoundYTrainDataX.npy}: non-ideal channel training data for scenario X in round Y, a 4D complex tensor of size $N_{sample}\times M\times N\times Q$. \\
+  \item \texttt{RoundYTrainLabelX.npy}: ideal channel training label data corresponding to the Xth scenario in the Yth round. The data structure is the same as that of \texttt{RoundYTrainDataX.npy}. \\
+  \item \texttt{RoundYTestDataX.npy}: non-ideal channel test data in the Xth scenario in round Y, used as the input for model test. The data structure is the same as that of \texttt{RoundYTrainDataX.npy} (but $N_{sample}$ might be smaller than that of the training data).
+\end{itemize}
+
+\paragraph*{3.2.2.2 Submission format}
+The competing team needs to upload a .zip file which contains the solutions named \{1-N\}.npz, as well as a python file (extension .py) and the trained weights stored in a .pth file. The content of the .py file should contain the code used to both define and train the submitted model. The content of the .pth file should contain the \texttt{torch.nn.Module.state_dict()}, such that it can be loaded with \texttt{torch.nn.Module.load_state_dict()}. The content of the .npz file should be the following:
+
+\begin{table}[h]
+\centering
+\caption{Content of the X.npz File}
+\begin{tabular}{|l|p{6cm}|p{4cm}|}
+  \hline
+  Keyword & Meaning & Dimension \\
+  \hline
+  U & Left Singular Matrix corresponding to channel matrices of all sampling points & $N_{sample}\times M\times r\times Q$ \\
+  \hline
+  S & Singular values corresponding to channel matrices at all sampling points, all elements must be positive & $N_{sample}\times r$ \\
+  \hline
+  V & Right Singular Matrix corresponding to channel matrices of all sampling points & $N_{sample}\times N\times r\times Q$ \\
+  \hline
+  C & A single float denoting the Mega MACs of the model, measured by PyTorch profiler & scalar \\
+  \hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
+% Page 7
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第7页, 共9页 Page 7, Total 9
+\end{center}
+
+Round 1 submissions:
+\begin{itemize}
+  \item 1.npz, 2.npz, 3.npz, `<anything>.py`, `<anything>.pth`
+\end{itemize}
+
+Round 2 submissions:
+\begin{itemize}
+  \item 1.npz, 2.npz, 3.npz, `<anything>.py`, `<anything>.pth`
+\end{itemize}
+
+\section*{4 Scoring Metrics}
+The overall score will be calculated as the sum of average AE (Approximation Error) and Mega MACs of the model:
+\[
+Score = 100\times AE + C.
+\]
+For instance, if one team gets $AE=0.9856$ and $C=1.4177$, then:
+\[
+Score = 100 \times 0.9856 + 1.4177 = 99.9777.
+\]
+Teams are ranked from lowest to highest score.
+
+\clearpage
+
+% Page 8
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第8页, 共9页 Page 8, Total 9
+\end{center}
+
+% (Empty or any additional foot content)
+
+\clearpage
+
+% Page 9
+\begin{center}
+  \Large\bfseries AI-Enabled Robust SVD Operator for Wireless Communication-Task Description\\
+  内部公开\\
+  Internal Use\\
+  2025-07-28 版权所有，侵权必究 All rights reserved\\
+  第9页, 共9页 Page 9, Total 9
+\end{center}
+
+\end{CJK}
+\end{document}

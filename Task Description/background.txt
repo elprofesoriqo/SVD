@@ -1,0 +1,221 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{hyperref}
+\geometry{margin=2.5cm}
+
+\begin{document}
+
+\begin{center}
+  \Large\bfseries
+  AI-Enabled Robust SVD Operator for Wireless Communication - Background
+
+  \vspace{1em}
+  Prepared by Sweden Research Center, Algorithm Lab \\
+  Date 2025-07
+
+  \vspace{2em}
+  Huawei Technologies Co., Ltd. \\
+  All rights reserved
+
+  \vspace{3em}
+  \small Internal Use \\
+  2025-07-22 \quad Page 1 of 8
+\end{center}
+
+\clearpage
+\begin{center}
+  \Large\bfseries
+  AI-Enabled Robust SVD Operator for Wireless Communication - Background
+
+  \vspace{1em}
+  Revision record
+
+  \vspace{1em}
+  \begin{tabular}{llp{8cm}}
+    Date & Version & Change Description \\
+    \hline
+    2025-07-09 & V1.0 & First version \\
+  \end{tabular}
+
+  \vspace{3em}
+  \small Internal Use \\
+  2025-07-22 \quad Page 2 of 8
+\end{center}
+
+\clearpage
+\begin{center}
+  \Large\bfseries
+  AI-Enabled Robust SVD Operator for Wireless Communication - Background
+
+  \vspace{1em}
+  Terminology
+\end{center}
+
+\begin{description}
+  \item[SVD] singular-value decomposition
+  \item[MIMO] multiple-input multiple-output
+  \item[ITU] International Telecommunication Union
+  \item[AI] artificial intelligence
+  \item[LoS] Line-of-sight
+  \item[NLoS] Non-line-of-sight
+\end{description}
+
+\begin{flushright}
+  \small Internal Use \\
+  2025-07-22 \quad Page 3 of 8
+\end{flushright}
+
+\clearpage
+\section*{1 Task Background}
+\subsection*{1.1 Background of the Competition}
+
+\begin{figure}[h]
+  \centering
+  \caption{MIMO and Massive MIMO/XL-MIMO \cite{ref2,ref3}}
+\end{figure}
+
+Over the past decade, global mobile data traffic has grown explosively, driving the continual evolution of wireless-communication systems. To accommodate this surging demand, system architectures have progressed from conventional multiple-input multiple-output (MIMO) configurations to large-scale MIMO (Massive MIMO) and even extremely large-scale MIMO (XL-MIMO) systems. As illustrated in Figure 1, Massive MIMO and XL-MIMO expand the antenna array by orders of magnitude compared with traditional MIMO, greatly enriching spatial degrees of freedom and thus promising substantial improvements in system capacity, spectral efficiency, and coverage.
+
+This dramatic antenna-count expansion, however, poses serious challenges for hardware implementation and signal-processing-algorithm design. Today’s wireless systems widely employ singular-value decomposition (SVD) of the channel matrix to decouple channels and optimize transmission. As the number of antennas grows, the channel matrix enlarges, and SVD’s computational complexity rises sharply - making it difficult to meet the stringent low-power, low-latency requirements of practical systems. Consequently, developing low-complexity SVD approximation algorithms suitable for large-scale MIMO channel matrices is essential for the feasibility of future systems.
+
+Meanwhile, artificial-intelligence (AI) technologies have advanced rapidly and achieved breakthroughs in fields such as computer vision and natural-language processing. Applying AI to solve communication problems is becoming a mainstream direction for future algorithm development and has attracted widespread attention in both academia and industry. Compared with traditional model-driven communication algorithms, AI techniques excel at data-driven learning, automatically uncovering latent structures and critical features from high-dimensional, complex datasets - offering a new paradigm to surpass conventional performance and complexity limits.
+
+Against this backdrop, designing AI-based SVD approximation algorithms for large-scale wireless-channel matrices has emerged as a highly promising research direction for reducing computational overhead while enhancing system performance. By leveraging data-driven methods to exploit inherent structural characteristics of wireless channels, AI algorithms can potentially slash computational complexity and outperform traditional techniques, thus providing algorithmic support for efficient, intelligent next-generation wireless-communication systems.
+
+\begin{flushright}
+  \small Internal Use \\
+  2025-07-22 \quad Page 4 of 8
+\end{flushright}
+
+\subsection*{1.2 Application of SVD Operator in Wireless Communication}
+
+\begin{figure}[h]
+  \centering
+  \caption{SVD diagram}
+\end{figure}
+
+For any complex matrix $H\in\mathbb{C}^{M\times N}$ of size $M\times N$, there exists a decomposition such that
+\[
+  H = U\,\Sigma\,V^*
+\]
+where $U\in\mathbb{C}^{M\times M}$ and $V\in\mathbb{C}^{N\times N}$ are unitary matrices satisfying
+\[
+  U^*\,U = I,\quad V^*\,V = I,
+\]
+and $\Sigma\in\mathbb{R}^{M\times N}$ is a real, diagonal matrix whose entries are
+\[
+  \Sigma_{ij} =
+  \begin{cases}
+    \sigma_i, & i = j,\\
+    0,        & i \neq j,
+  \end{cases}
+  \quad
+  \sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_{\min\{M,N\}} \ge 0.
+\]
+This decomposition is called the singular-value decomposition (SVD) of the matrix $H$. The matrices $U$ and $V$ are referred to as the left and right singular matrices of $H$, respectively, while $\sigma_1,\sigma_2,\dots,\sigma_{\min\{M,N\}}$ are the singular values of $H$.
+
+The SVD can also be written as a linear combination of rank-one matrices:
+\[
+  H = \sum_{i=1}^{\min\{M,N\}} \sigma_i\,u_i\,v_i^*
+\]
+where $u_i$ and $v_i$ denote the $i$-th column vectors of $U$ and $V$, respectively.
+
+\begin{flushright}
+  \small Internal Use \\
+  2025-07-22 \quad Page 5 of 8
+\end{flushright}
+
+\subsection*{Single-User MIMO Precoding}
+
+\begin{figure}[h]
+  \centering
+  \caption{Single-user MIMO}
+\end{figure}
+
+One classic use case is precoder design for a single-user MIMO system. Consider a single-user downlink MIMO link in which the base station is equipped with $N_T$ transmit antennas, while the user terminal has $N_R$ receive antennas, $N_R \le N_T$. The system model is
+\[
+  y = H\,x + n
+\]
+where $y\in\mathbb{C}^{N_R\times1}$ is the signal vector received at the user, $H\in\mathbb{C}^{N_R\times N_T}$ is the MIMO channel matrix, $x\in\mathbb{C}^{N_T\times1}$ is the transmit-signal vector, and $n\in\mathbb{C}^{N_R\times1}$ denotes noise.
+
+The transmit signal $x$ is generated by linear precoding:
+\[
+  x = P\,s
+\]
+where $P\in\mathbb{C}^{N_T\times N_R}$ is the precoding matrix and $s\in\mathbb{C}^{N_R\times1}$ is the information-symbol vector.
+
+At the receiver, the vector $y$ is processed by a linear combiner:
+\[
+  r = R\,y
+\]
+where $r\in\mathbb{C}^{N_R\times1}$ is the received vector and $R\in\mathbb{C}^{N_R\times N_R}$ is the receive-weight matrix.
+
+Combining the above equations gives
+\[
+  r = R\,y = R\,H\,P\,s + R\,n.
+\]
+Let the truncated SVD of the channel be $H = U\,\Sigma\,V^*$. In the SVD-based precoding scheme, the weights are set to
+\[
+  P = V,\quad R = U^*.
+\]
+Substituting yields
+\[
+  r = U^*\,H\,V\,s + U^*\,n = \Sigma\,s + n
+  \quad\Longrightarrow\quad
+  r_i = \sigma_i\,s_i + n_i,\; i=1,\dots,N_R.
+\]
+This expression shows that SVD precoding diagonalizes the original MIMO channel, effectively decoupling it into $N_R$ independent parallel sub-channels and eliminating inter-stream interference.
+
+\begin{figure}[h]
+  \centering
+  \caption{SVD-based SU-MIMO precoding}
+\end{figure}
+
+\begin{flushright}
+  \small Internal Use \\
+  2025-07-22 \quad Page 6 of 8
+\end{flushright}
+
+\subsection*{1.3 AI-enabled Wireless Robust SVD Operator}
+
+As noted earlier, the ever-increasing antenna counts in future wireless-communication systems make the conventional SVD algorithm computationally intensive and slow. To address this, the present algorithm competition centers on neural-network-based SVD operators, encouraging participants to exploit neural networks' powerful nonlinear-fitting capabilities to design data-driven SVD operators tailored to wireless channels - thereby offering an efficient substitute for the traditional SVD. At the same time, practical-system needs are highlighted: algorithms must remain robust in complex wireless environments, meaning the models should generalize well and handle real-world non-idealities such as noise, hardware impairments, and channel-estimation errors.
+
+Inevitably, AI-enabled robust SVD-operator design for wireless systems faces several technical challenges:
+\begin{itemize}
+  \item Structural guarantee for unitary matrices: ordinary neural-network outputs have no built-in structure, whereas the left and right singular matrices produced by an SVD must satisfy orthogonality constraints. Competitors can embed dedicated unitary-matrix-generation modules in the network to enforce orthogonality while keeping back-propagation stable, or add an orthogonality regularizer to the loss function.
+  \item Neural-network architecture design: architecture is decisive for both performance and efficiency. Reference \cite{ref6} proposes three CNN-based methods to approximate the SVD of wireless-channel matrices; the latter two exploit the weighted linear-combination form of the SVD to shape the network, sharply reducing parameter count and computational load while preserving accuracy. Reference \cite{ref7} explores a Transformer-based SVD-approximation model with excellent performance.
+  \item Model robustness and generalization: given the diversity of real communication scenarios, models must be resilient to noise, channel-estimation errors, and other non-ideal factors, and should adapt broadly to different channel types (e.g., LoS vs NLoS) and antenna configurations.
+\end{itemize}
+
+\begin{flushright}
+  \small Internal Use \\
+  2025-07-22 \quad Page 7 of 8
+\end{flushright}
+
+\section*{2 References}
+\begin{thebibliography}{9}
+\bibitem{ref1}
+From LTE to Massive MIMO: The Evolution of MIMO Technology in 5G NR, 2025. \url{https://telcomatraining.com/from-lte-to-massive-mimo-the-evolution-of-mimo-technology-in-5g-nr-2/}
+\bibitem{ref2}
+Larsson E G, Edfors O, Tufvesson F, et al. Massive MIMO for next generation wireless systems. IEEE Communications Magazine, 2014, 52(2): 186–195.
+\bibitem{ref3}
+Wang Z, Zhang J, Du H, et al. A tutorial on extremely large-scale MIMO for 6G: Fundamentals, signal processing, and applications. IEEE Communications Surveys \& Tutorials, 2024, 26(3): 1560–1605.
+\bibitem{ref4}
+Huawei, Whitepaper, “6G: The Next Horizon, From Connected People and Things to Connected Intelligence,” Sept. 2021. Available online: \url{https://www.huawei.com/cn/huaweitech/future-technologies/6g-white-paper}
+\bibitem{ref5}
+ITU-R, DRAFT NEW RECOMMENDATION, “Framework and overall objectives of the future development of IMT for 2030 and beyond,” June 2023.
+\bibitem{ref6}
+Peken T, Adiga S, Tandon R, et al. Deep learning for SVD and hybrid beamforming. IEEE Transactions on Wireless Communications, 2020, 19(10): 6621–6642.
+\bibitem{ref7}
+Charton F. Linear algebra with transformers [J]. arXiv preprint arXiv:2112.01898, 2021.
+\end{thebibliography}
+
+\begin{flushright}
+  \small Internal Use \\
+  2025-07-22 \quad Page 8 of 8
+\end{flushright}
+
+\end{document}
