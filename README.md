@@ -1,4 +1,4 @@
-## AI-Enabled Robust SVD Operator (Tech Arena 2025)
+## SVD Operator (Tech Arena 2025)
 
 Neural-network approach to approximate the SVD operator for wireless MIMO channels under non-ideal conditions (noise, timing offsets). The model predicts top‑r singular values and corresponding unit‑norm left/right singular vectors without using traditional SVD/EVD inside the network. Scoring follows the competition metric: AE + model complexity (Mega MACs).
 
